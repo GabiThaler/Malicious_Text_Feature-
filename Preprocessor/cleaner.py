@@ -3,6 +3,13 @@ import re
 import string
 #נצרך לקבל קשימה של כל המילות חיבור
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
+#דברים שהצטרך בשביל המציאת שורשים
+from nltk.tokenize import word_tokenize
+from nltk import pos_tag
+from nltk.stem import WordNetLemmatizer
+import nltk
+
+
 
 
 class Cleaner:
@@ -37,21 +44,33 @@ class Cleaner:
         return " ".join(filtered)
 
 
+    def Lemtization(self,text):
+
+        lemmatizer = WordNetLemmatizer()
+
+        tokens = word_tokenize(text)
+
+        tagged_tokens = pos_tag(tokens)
+
+        def get_wordnet_pos(tag):
+            if tag.startswith('J'):
+                return 'a'
+            elif tag.startswith('V'):
+                return 'v'
+            elif tag.startswith('N'):
+                return 'n'
+            elif tag.startswith('R'):
+                return 'r'
+            else:
+                return 'n'
+
+        lemmatized_sentence = []
+
+        for word, tag in tagged_tokens:
+            if word.lower() == 'are' or word.lower() in ['is', 'am']:
+                lemmatized_sentence.append(word)
+            else:
+                lemmatized_sentence.append(lemmatizer.lemmatize(word, get_wordnet_pos(tag)))
+        return ' '.join(lemmatized_sentence)
 
 
-
-cc=Cleaner("gab#@!$@#i is "
-           "#@!$%th!!~e     "
-           "k$#ing")
-a=cc.Removing_punctuation_marks("   GAb#@!$@#i is "
-           "            #@!$%th!!~e     "
-           "k$#iNg")
-print(a)
-a=cc.remove_special_characters(a)
-print(a)
-a=cc.Removing_unnecessary_whitespace_characters(a)
-print(a)
-a=cc.Converting_text_to_lowercase(a)
-print(a)
-a=cc.Removing_stop_words(a)
-print(a)
