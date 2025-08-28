@@ -22,7 +22,7 @@ class GetData:
                 self.publish_message(producer, "raw_tweets_not_antisemitic", filtering["tweets_not_antisemitic"])
                 print("✅ Message sent to Kafka") 
                 current_jmp += 100
-                time.sleep(1)
+                time.sleep(60)
                 print("sleep 60 second")  
         except Exception as e:
             print(e)
@@ -51,5 +51,5 @@ class GetData:
         producer.flush()
 
 
-a = GetData()
+a=GetData()
 a.get_collection()

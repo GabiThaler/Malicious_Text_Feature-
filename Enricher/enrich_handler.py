@@ -6,12 +6,15 @@ class EnrichHandler:
         self.producer = producer
         self.output_topic = output_topic
 
+
+
     def handle(self, message):
         if isinstance(message, list):
             for item in message:
                 self._process_one(item)
             return message
         return self._process_one(message)
+
 
     def _process_one(self, msg: dict):
         if not isinstance(msg, dict):

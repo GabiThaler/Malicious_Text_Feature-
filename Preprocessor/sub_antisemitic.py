@@ -17,7 +17,7 @@ def listen_kafka():
     try:
         for message in consumer:
             print(f"[{message.topic}] {message.value}")
-            manager.clean(message.value)
+            manager.clean(message.value,message.topic)
 
 
     except KeyboardInterrupt:
