@@ -6,7 +6,9 @@ class EnrichHandler:
         self.output_topic = output_topic
 
     def handle(self, message: dict) -> dict:
-        clean_text = message.get("clean_text", "")
+        for msg in message:
+            clean_text = msg['text']
+        # clean_text = message.get("clean_text", "")
 
         # enrich
         message["sentiment"] = self.sp.get_sentiment(clean_text)

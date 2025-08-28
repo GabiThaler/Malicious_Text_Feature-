@@ -7,11 +7,12 @@ from weapon import WeaponProcessor
 from producer import Producer
 
 consumer = KafkaConsumer(
-    'preprocessed_tweets_antisemitic',
+    'raw_tweets_antisemitic',
     bootstrap_servers='localhost:9092',
     group_id='my-group',
     value_deserializer=lambda x: json.loads(x.decode('utf-8')),
 )
+print("lesening")
 
 sp = SentimentProcessor()
 wp = WeaponProcessor("./data/weapon_list.txt")
@@ -23,6 +24,8 @@ handler = EnrichHandler(
     producer=prod,
     output_topic='enriched_preprocessed_tweets_antisemitic'
 )
+
+
 
 manager = MessageManager(consumer, handler)
 manager.run()
