@@ -8,21 +8,18 @@ class WeaponProcessor:
                     weapon_list.append(weapon)
         self.weapon_list = weapon_list
 
-
-    def find_weapon(self, clean_text: str) -> str:
+    def find_weapons(self, clean_text: str) -> list[str]:
 
         text = ' '.join(clean_text.split())
         tokens = set(text.split())
         padded = f" {text} "
 
+        found = []
         for weapon in self.weapon_list:
             if ' ' in weapon:
                 if f" {weapon} " in padded:
-                    print(f"Found weapon: {weapon}")
-                    return weapon
+                    found.append(weapon)
             else:
                 if weapon in tokens:
-                    print(f"Found weapon: {weapon}")
-                    return weapon
-
-        return ""
+                    found.append(weapon)
+        return found
