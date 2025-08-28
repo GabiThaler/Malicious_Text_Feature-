@@ -13,8 +13,12 @@ import nltk
 
 
 class Cleaner:
-    def __init__(self,data):
-        self.data=data
+    def __init__(self):
+        # self.data=data
+        # self.clean_data=""
+        pass
+
+
     #פונקציה שמנקה את הטקסט מסימני פיסוק
     def Removing_punctuation_marks(self,text):
         #פונקציה מובנת בפייתון שמנקה טקסטים מסימני פיסוק
@@ -22,7 +26,7 @@ class Cleaner:
         return text.translate(translator)
 
     # פונקציה להסרת סימני פיסוק ותווים מיוחדים
-    def remove_special_characters(self,text):
+    def Remove_special_characters(self,text):
         cleaned_text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
         return cleaned_text
 
@@ -72,5 +76,7 @@ class Cleaner:
             else:
                 lemmatized_sentence.append(lemmatizer.lemmatize(word, get_wordnet_pos(tag)))
         return ' '.join(lemmatized_sentence)
+
+
 
 
