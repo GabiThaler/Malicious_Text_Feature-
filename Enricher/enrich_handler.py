@@ -40,6 +40,6 @@ class EnrichHandler:
         else:
             print(msg)
 
-        print(f"[enriched] id={msg.get('id')} sentiment={msg.get('sentiment')} weapons={msg.get('weapons_detected')}")
+        print(f"[enriched] sentiment={msg.get('sentiment')} weapons={msg.get('weapons_detected')}")
         return msg
 
