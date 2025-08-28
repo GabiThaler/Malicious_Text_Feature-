@@ -22,4 +22,5 @@ class MessageManager:
 
     def run(self):
         for msg in self.consumer:
+            print(msg.value)
             self.handler.handle(msg.value)
