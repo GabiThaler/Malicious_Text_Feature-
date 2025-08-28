@@ -6,6 +6,8 @@ import json
 
 
 class GetData:
+
+
     dal = Dal()
     collection = dal.open_connection()
 
@@ -20,12 +22,16 @@ class GetData:
                 producer = self.get_producer()
                 self.publish_message(producer, "raw_tweets_antisemitic", filtering["tweets_antisemitic"])
                 self.publish_message(producer, "raw_tweets_not_antisemitic", filtering["tweets_not_antisemitic"])
-                print("✅ Message sent to Kafka")
+
+
+
+                print("✅ Message sent to Kafka") 
                 current_jmp += 100
-                time.sleep(1)
-                print("sleep 60 second")
+                time.sleep(60)
+                print("sleep 60 second")  
         except Exception as e:
             print(e)
+    
 
     def filter_data(self, list_tweets):
         tweets_antisemitic = list()
@@ -37,7 +43,9 @@ class GetData:
             else:
                 tweets_not_antisemitic.append(tweet)
 
+
         return {"tweets_antisemitic": tweets_antisemitic,
+
                 "tweets_not_antisemitic": tweets_not_antisemitic}
 
     def get_producer(self):
@@ -52,4 +60,5 @@ class GetData:
 
 
 a = GetData()
+
 a.get_collection()

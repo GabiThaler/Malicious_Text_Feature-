@@ -6,12 +6,15 @@ class EnrichHandler:
         self.output_topic = output_topic
         self.ts = timestamp_extractor
 
+
+
     def handle(self, message):
         if isinstance(message, list):
             for item in message:
                 self._process_one(item)
             return message
         return self._process_one(message)
+
 
     def _process_one(self, msg: dict):
         if not isinstance(msg, dict):
@@ -43,6 +46,10 @@ class EnrichHandler:
         if self.producer and self.output_topic:
             key = str(msg.get("id")) if msg.get("id") is not None else None
             self.producer.publish(self.output_topic, msg, key=key)
+
+
+        print(f"[enriched] sentiment={msg.get('sentiment')} weapons={msg.get('weapons_detected')}")
+        return msg
 
 
         return msg
