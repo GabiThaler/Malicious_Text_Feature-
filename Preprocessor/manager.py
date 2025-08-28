@@ -28,9 +28,9 @@ class Manager:
 
         # שליחה ל־Kafka לטופיק המתאים
             if source_topic == "raw_tweets_antisemitic":
-                self.send_to_kafka("cleaned_tweets_antisemitic", message)
+                self.send_to_kafka("preprocessed_tweets_antisemitic", message)
             elif source_topic == "raw_tweets_not_antisemitic":
-                self.send_to_kafka("cleaned_tweets_not_antisemitic", message)
+                self.send_to_kafka("preprocessed_tweets_not_antisemitic", message)
 
     def send_to_kafka(self, topic, message):
         self.producer.send(topic, message)
