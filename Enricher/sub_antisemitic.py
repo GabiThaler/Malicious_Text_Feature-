@@ -5,6 +5,7 @@ from sentiment import SentimentProcessor
 from enrich_handler import EnrichHandler
 from weapon import WeaponProcessor
 from producer import Producer
+from timestamp_extractor import TimestampExtractor   # ← חדש
 
 consumer = KafkaConsumer(
     'preprocessed_tweets_antisemitic',
@@ -13,16 +14,19 @@ consumer = KafkaConsumer(
     value_deserializer=lambda x: json.loads(x.decode('utf-8')),
 )
 
-print('consumer started')
+print("consumer started")
+
 
 
 sp = SentimentProcessor()
 wp = WeaponProcessor("./data/weapon_list.txt")
+ts = TimestampExtractor()
 prod = Producer()
 
 handler = EnrichHandler(
     sentiment_processor=sp,
     weapons_detector=wp,
+    timestamp_extractor=ts,  # ← הזרקה
     producer=prod,
     output_topic='enriched_preprocessed_tweets_antisemitic'
 )
